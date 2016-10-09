@@ -2,6 +2,8 @@ package ch.elsachneider.a10000pas;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,7 +54,7 @@ public class marcher extends AppCompatActivity {
     private void buildFitnessClient() {
         if (mClient == null) {
             mClient = new GoogleApiClient.Builder(this)
-                    .addApi(Fitness.SENSORS_API)
+                    .addApi(Fitness.HISTORY_API)
                     .addScope(new Scope(Scopes.FITNESS_LOCATION_READ))
                     .addConnectionCallbacks(
                             new GoogleApiClient.ConnectionCallbacks() {
@@ -105,7 +107,13 @@ public class marcher extends AppCompatActivity {
             }
 
             Log.i(TAG, "Total steps: " + total);
-            Toast.makeText(getApplicationContext(),"Total steps: " + total,Toast.LENGTH_SHORT).show();
+            final long finalTotal = total;
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(),"Total steps: " + finalTotal,Toast.LENGTH_SHORT).show();
+                }
+            });
 
             return null;
         }
