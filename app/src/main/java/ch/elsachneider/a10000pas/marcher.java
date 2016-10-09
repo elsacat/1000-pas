@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -104,6 +105,7 @@ public class marcher extends AppCompatActivity {
             }
 
             Log.i(TAG, "Total steps: " + total);
+            Toast.makeText(getApplicationContext(),"Total steps: " + total,Toast.LENGTH_SHORT).show();
 
             return null;
         }
